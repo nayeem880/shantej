@@ -223,6 +223,54 @@ app.post('/signup', function (req, res) {
 
 /* REGISTRATION ROUTE*/
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // ----------------- BEGIN /run-spider PRODUCTION CODE ----------------//
 app.post("/run-spider", upload.single('csv_file_name'), function (req, res) {
   // Delete previous user uploaded URL records
@@ -463,6 +511,43 @@ app.post("/run-spider", upload.single('csv_file_name'), function (req, res) {
   }
 });
 // ----------------- END RUN-SPIDER PRODUCTION CODE ----------------//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // ----------------- BEGIN /run-spider DEVELOPMENT CODE ----------------//
