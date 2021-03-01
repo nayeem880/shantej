@@ -1,0 +1,108 @@
+body {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+}
+footer {
+  color: rgb(115, 125, 139);
+  color: rgba(0, 0, 0, 0.5);
+  margin-top: 60px;
+  text-align: center;
+}
+
+.mycard {
+  height: 270px;
+  margin: 10px 10x;
+  text-align: center;
+}
+
+.notfound {
+  margin: 100px auto;
+}
+
+.urlcard {
+  margin-bottom: 10px;
+}
+
+.pageTitle {
+  margin: 50px auto;
+  text-align: center;
+}
+
+.download {
+  float: right;
+  margin: 5px auto;
+}
+
+.exportTable {
+  float: right;
+  margin-bottom: 15px;
+  margin-right: 5px;
+}
+
+div#contact_customers {
+  padding: 20px;
+  margin-top: 70px;
+}
+
+h1 {
+  font-weight: 400;
+}
+
+.contact_customers_img {
+  background: transparent url('/img/write_to_customer.jpeg') no-repeat center;
+  text-align: center;
+  margin: 20px auto;
+  width: 100%;
+}
+
+.contact_customers_img h2 {
+  bottom: 50px;
+  color:#fff;
+  font-weight: 400;
+  position: relative;
+  margin: 200px auto;
+  letter-spacing: 0.1rem;
+  text-shadow: darkgray;
+}
+
+div#add_template {
+  padding: 20px;
+  margin-top: 70px;
+}
+
+.add_template_img {
+  background: transparent url('/img/email_template_2.png') no-repeat center;
+  background-size: 100%;
+  image-rendering: auto;
+  text-align: center;
+  margin: 20px auto;
+}
+
+.add_template_img h2 {
+  bottom: -170px;
+  color:#fff;
+  font-size: 100%;
+  font-weight: 300;
+  position: relative;
+  margin: 200px auto;
+  right: -280px;
+  letter-spacing: 0.1rem;
+  text-shadow: darkgray;
+}
+
+
+/* SnovIO badge class */
+.snovIObadge {
+  font-size: 0.6rem;
+  margin-right: 5px;
+  float: right;
+}
+
+/* SnovIO stats button class */
+.snovIOStats {
+  padding: 2px 10px;
+  margin-top: 0;
+  margin-bottom: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+}

@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+  </script> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+  </script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+  </script>
+
+  <!-- Font awesome CDN -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+    integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/styles.css" type="text/css">
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="header clearfix">
+      <nav class="navbar fixed-top navbar-light bg-light">
+        <div class="container d-flex justify-content-center">
+          <ul class="nav justify-content-center">
+            <li class="nav-item">
+              <a class="nav-link active" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/spiders">Spiders</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/reports">Reports</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/#contact_customers">Contact Customers</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="templatesDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Templates
+              </a>
+              <div class="dropdown-menu" aria-labelledby="templatesDropdown">
+                <a class="dropdown-item" href="/#add_template">Add Template</a>
+                <a class="dropdown-item" href="/templates">View Templates</a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#">About Us</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <h3 class="text-muted">Bloggers Hit</h3>
+    </div>
+
+    <div class="jumbotron pageTitle">
+      <h1>Bloggers Hit App</h1>
+      <p class="lead">Extract email addresses from any urls using our spiders and send mails to customers</p>
+      <p><a class="btn btn-lg btn-success" href="#" role="button">Sign up Now</a></p>
+    </div>
+
+    <div class="card-deck">
+      <div class="card">
+        <img class="card-img-top mycard" src="img/run_spider.png" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Spiders</h5>
+          <p class="card-text">Select any of the our spiders and run</p>
+          <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#exampleModal">Run
+            Spider</button>
+          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <form action="/run-spider" method="POST" enctype="multipart/form-data">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Spider Form</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form>
+                      <div class="form-group">
+                        <label for="project" class="col-form-label">Project Name</label>
+                        <input type="text" class="form-control" id="project" name="project" value="extract_emails">
+                      </div>
+                      <div class="form-group">
+                        <label for="spider" class="col-form-label">Spider Name</label>
+                        <select class="form-control" id="spider" name="spider">
+                          <option selected value="default">Select Spider</option>
+                          <option value="guestpostscraper_and_get_emails">Post & Email Finder</option>
+                          <option value="guestpostscraper">Post Finder</option>
+                          <option value="get_emails">Email Finder</option>
+                        </select>
+                      </div>
+                      <div class="form-group" id="keywordsField">
+                        <label for="keywords" class="col-form-label">Keywords</label>
+                        <input type="text" class="form-control" id="keywords" name="keywords"
+                          placeholder="Ex: digital marketing,fitness">
+                      </div>
+                      <div class="form-check form-check-inline" id="custom_report_name">
+                        <label for="report_title" class="col-lg-5 col-form-label" style="padding-left: 0%;">Report
+                          Name</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control float-right" id="report_title" name="report_title"
+                            placeholder="Ex: Digital marketing & Fitness">
+                        </div>
+                      </div>
+                      <div class="form-check" id="upload_csv">
+                        <input type="checkbox" class="form-check-input" id="upload_csv_checkbox"
+                          name="upload_csv_checkbox">
+                        <label class="form-check-label" for="upload_csv_checkbox">Upload CSV</label>
+                      </div>
+                      <div class="form-group form-check-inline" id="browse_file">
+                        <label for="csv_file_name" class="col-lg-4 col-form-label" style="padding-left: 0%;">CSV with
+                          URLs</label>
+                        <div class="col-sm-11">
+                          <input type="file" class="form-control-file" id="csv_file_name" name="csv_file_name">
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <img class="card-img-top mycard" src="img/view_reports.png" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">View Reports</h5>
+          <p class="card-text">View spiders execution reports</p>
+          <a href="/view" class="btn btn-outline-success">Lets Go</a>
+        </div>
+      </div>
+      <div class="card">
+        <img class="card-img-top mycard" src="img/monitor.png" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Monitor Progress</h5>
+          <p class="card-text">Monitor spiders live logs</p>
+          <a href="https://kallada-scrapers.herokuapp.com/jobs" class="btn btn-outline-info" target="_blank">Okay</a>
+
+          <!-- <a href="http://127.0.0.1:6800/jobs" class="btn btn-outline-info" target="_blank">Okay</a> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="container">
+    <div class="card-deck">
+      
+     <div class="card col-lg-4 mb-4 my-4">
+       <img class="card-img-top mycard" src="img/mail.png" alt="Card image cap">
+       <div class="card-body">
+         <h5 class="card-title">Save Emails</h5>
+         <p class="card-text">Save all the emails here and use later while sending email</p>
+         <a class="btn btn-sm btn-outline-success mb-2 my-2" href="/re">Connect Emails</a>
+         <button onclick="showEmails()" class="btn btn-sm btn-outline-primary mb-2 my-2">See connected emails</button>
+       </div>
+     </div>
+
+     <div id="hidden" class="card col-lg-4 mb-4 my-4" style="display: none; background-color: rgb(255, 238, 238);">
+      <div class="card-body">
+        <h5 class="card-title">Connected Emails</h5>
+        <button id="refresh">Refresh</button>
+              <!-- <%= tokenData %> -->
+              <ul id="reload">
+                  <% for (var i = 0; i < tokenData.length; i++) { %>
+                  <li id="eachItem">
+                    <form action="/remove/<%= tokenData[i] %>" method="POST">
+                      <div>
+                        <%= tokenData[i] %>
+                        <button class="btn btn-sm btn-outline-danger" type="submit">remove</a>
+                      </div>
+                    </form>
+                  </li>
+                  <% } %>
+              </ul>
+      </div>
+    </div>
+   </div>
+ </div>
+
+
+
+  <div class="container" id="contact_customers">
+    <div class="row contact_customers_img rounded">
+      <h2>Send Letters To Customers</h2>
+    </div>
+    <form action="/sendmail" method="POST">
+      <div class="form-group row">
+        <label for="from_email" class="col-sm-2 col-form-label">From:</label>
+        <div class="col-sm-10">
+          <select id="from_email" name="from_email">
+            <% for(var a=0; a < tokenData.length; a++) { %>
+             <option value="<%= tokenData[a] %>"><%= tokenData[a] %></option>
+            <% } %>
+        </select>
+
+          <!-- <input type="email" readonly class="form-control-plaintext" id="from_email" name="from_email"
+            value="santhej@outsourceman.com"> -->
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="to_email" class="col-sm-2 col-form-label">To:</label>
+        <div class="col-sm-10">
+          <input type="email" class="form-control" id="to_email" name="to_email" placeholder="customer@guestpost.com">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="email_subject" class="col-sm-2 col-form-label">Subject:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="email_subject" name="email_subject"
+            placeholder="Enter email subject">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email_body">Message:</label>
+        <textarea class="form-control" id="email_body" name="email_body" rows="10"
+          placeholder="Enter email body"></textarea>
+      </div>
+      <button type="submit" class="btn btn-outline-success mb-2">Send Email <i class="fas fa-paper-plane"></i></button>
+    </form>
+  </div>
+
+  <div class="container" id="add_template">
+    <div class="row add_template_img rounded">
+      <h2>Add Your Custom Email Template</h2>
+    </div>
+    <form action="/add-template" method="POST">
+      <div class="form-group row">
+        <label for="template_name" class="col-sm-2 col-form-label">Template Name:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="template_name" name="template_name"
+            placeholder="Enter a name for the template">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="template_subject" class="col-sm-2 col-form-label">Template Subject:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="template_subject" name="template_subject"
+            placeholder="Enter a subject for the template">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="template_body">Template Body:</label>
+        <textarea class="form-control" id="template_body" name="template_body" rows="10"
+          placeholder="Enter a message body for the template"></textarea>
+      </div>
+      <button type="submit" class="btn btn-outline-primary mb-2 float-right">Add Teamplate <i
+          class="fas fa-plus-circle"></i></button>
+    </form>
+  </div>
+
+  <div class="container">
+    <footer class="footer">
+      <p>&copy; 2020 Spidey Inc.</p>
+    </footer>
+  </div>
+
+  
+
+
+<script> 
+
+$(document).ready(function() {
+  $('#refresh').on('click', function() {
+  var url = '/'; //please insert the url of the your current page here, we are assuming the url is 'index.php'         
+  $('#reload').load(url + ' #reload'); //note: the space before #div1 is very important
+  });
+    });
+
+// $("#refresh").click(function(event){ 
+//   $("#reload").load(location.href+" #reload>*");
+//   console.log("RELOAD")
+// }); 
+
+
+ function showEmails() {
+    inputdiv = document.getElementById("hidden")
+    if (inputdiv.style.display === "none") {
+      inputdiv.style.display = "block";
+    }
+  }
+
+
+
+
+
+    $(document).ready(function() {
+      var sEmail   		= $("#sEmail"); //Fields wrapper
+      var addemail   		= $("#addemail"); //Fields wrapper
+
+      // var sbtn   		= $("#sbtn"); //Fields wrapper
+      // var resetbtn   		= $(".resetbtn"); //Fields wrapper
+      // var elist = localStorage.getItem("emailList");
+      // var options = JSON.parse(elist);
+      // console.log("length of options : ",options.length)
+    $(addemail).click(function(e){
+      e.preventDefault();
+      
+
+    })
+
+
+
+
+
+
+
+    $(sEmail).focus(function(e){ //on add input button click
+      e.preventDefault();
+      $(sEmail).empty();
+    $.each(options, function(i, p) {
+        $(sEmail).append($('<option></option>').val(p).html(p));
+    });
+    })
+    
+    $(resetbtn).click(function(e){ //on add input button click
+      e.preventDefault();
+      localStorage.clear();
+      try{
+        var elist = localStorage.getItem("emailList");
+        var options = JSON.parse(elist);
+        console.log("Val is : ", options)
+        
+      }
+      catch{
+        console.log("Val is : Error " )
+      }
+      window.location.reload();
+    });
+      });
+    </script>
+  <script src="src/index.js"></script>
+  <script type="text/javascript" src="gmail.js"></script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<%- include("partials/header") -%>
+
+<div class="box pageTitle" id="heading">
+  <h1> <%= pageTitle %> </h1>
+</div>
+
+<div>
+  <div class="row exportTable">
+    <button class="btn" onclick="exportTableToCsv('email_data.csv')" data-toggle="tooltip" data-placement="top"
+      title="Download as CSV" style="color: cornflowerblue;">
+      <i class="fas fa-file-csv"></i>
+    </button>
+    <button class="btn" onclick="exportTableToExcel('email_data.xls')" data-toggle="tooltip" data-placement="top"
+      title="Download as Excel" style="color:green;">
+      <i class="fas fa-file-excel"></i>
+    </button>
+    <!-- <button class="btn" onclick="exportTableToPdf('email_data.pdf')" data-toggle="tooltip" data-placement="top" -->
+    <button class="btn" onclick="exportTableToPdf()" data-toggle="tooltip" data-placement="top" title="Download as PDF"
+      style="color: crimson;">
+      <i class="fas fa-file-pdf"></i>
+    </button>
+    <button type="button" class="btn float-right openModalForm" data-toggle="modal" data-target="#modal" id="send_mail"
+      onclick="getSelectedEmails()"><i class="fas fa-paper-plane"></i></button>
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+      <form action="/sendmail" method="POST">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Send Email To All Customers</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="template" class="col-form-label">Choose A Template</label>
+                  <select class="form-control" id="template" name="template">
+                    <option value="" selected>Select Template</option>
+                    <% var count = 1; %>
+                    <% templates.forEach(function(template){ %>
+                    <option id="template_option_<%= count %>" value="<%= template.template_name %>">
+                      <%= template.template_name %></option>
+                    <% count = count + 1; %>
+                    <% }); %>
+                  </select>
+                </div>
+                <% var count = 1; %>
+                <% templates.forEach(function(template){ %>
+                <div class="form-group" style="display: <%= count === 1 ? 'block' : 'none' %>;"
+                  id="template_option_<%= count %>_subject">
+                  <label for="template_option_<%= count %>_email_subject" class="col-form-label">Subject</label>
+                  <input readonly type="text" class="form-control" id="template_option_<%= count %>_email_subject"
+                    value="<%= template.template_subject %>">
+                </div>
+                <div class="form-group" style="display: <%= count === 1 ? 'block' : 'none' %>;"
+                  id="template_option_<%= count %>_body">
+                  <label for="template_option_<%= count %>_email_body">Message:</label>
+                  <textarea readonly class="form-control" id="template_option_<%= count %>_email_body"
+                    rows="15"><%= template.template_body %></textarea>
+                </div>
+                <% count = count + 1; %>
+                <% }); %>
+              </form>
+            </div>
+            <input type="hidden" id="to_email" name="to_email" value="">
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-danger float-left" data-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-outline-success">Send <i class="fas fa-paper-plane"></i></button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <table class="table table-hover" id="tblData">
+    <% var from_snov_io = 0; %>
+    <% var from_db = 0; %>
+    <% emailItems.forEach(function(emailItem){ %>
+    <%     if (emailItem.snov_io == 'Yes') {%>
+    <%         from_snov_io = from_snov_io + 1; %>
+    <%     } else { %>
+    <%         from_db = from_db + 1; %>
+    <%     } %>
+    <% }); %>
+    <div>
+      <button class="btn btn-warning snovIOStats">
+        From SnovIO: <span class="badge badge-light"><%= from_snov_io %></span>
+      </button>
+      <button class="btn btn-info snovIOStats">
+        From DB/Google: <span class="badge badge-light"><%= from_db %></span>
+      </button>
+    </div>
+    <thead>
+      <th>
+        <input type="checkbox" class="check" id="checkAll">
+      </th>
+      <th>SL</th>
+      <th>Web Site</th>
+      <th>URL</th>
+      <th>Email</th>
+      <th>DA</th>
+      <th>PA</th>
+      <th>CF</th>
+      <th>TF</th>
+      <th></th>
+    </thead>
+
+    <tbody>
+      <% var count = 1; %>
+      <% emailItems.forEach(function(emailItem){ %>
+      <tr class=<%= emailItem.email === "NA" ? 'danger' : '' %>>
+        <td><input type="checkbox" class="check"></td>
+        <td><%= count %></td>
+        <td><%= emailItem.website %> <span
+            class="<%= emailItem.snov_io === 'Yes' ? 'badge badge-pill badge-warning snovIObadge' : '' %>"">
+            <%= emailItem.snov_io === "Yes" ? 'SnovIO' : '' %></span>
+        </td>
+        <td><%= emailItem.url %></td>
+        <td><%= emailItem.email %></td>
+        <td><%= emailItem.da %></td>
+        <td><%= emailItem.pa %></td>
+        <td><%= emailItem.cf %></td>
+        <td><%= emailItem.tf %></td>
+        <td>
+          <form action="/reports/delete/<%= emailItem._id %>" method="POST">
+            <button type="submit" class="close" aria-label="Close" style="color:crimson;">
+              <span aria-hidden="true"><i class="fas fa-trash-alt"></i></span>
+            </button>
+          </form>
+        </td>
+      </tr>
+      <% count = count + 1; %>
+      <% }); %>
+    </tbody>
+  </table>
+</div>
+
+<%- include("partials/footer") -%>

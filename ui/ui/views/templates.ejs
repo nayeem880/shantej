@@ -1,0 +1,62 @@
+<%- include("partials/header") -%>
+
+<div class="box pageTitle" id="heading">
+  <h1> <%= pageTitle %> </h1>
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <% templates.forEach(function(template){ %>
+    <div class="col-sm-4">
+      <div class="card urlcard">
+        <div class="card-body">
+          <h5 class="card-title"><%= template.template_name %></h5>
+          <p class="card-text"><%= template.template_subject %></p>
+          <button type="button" class="btn btn-outline-info float-right openModalForm" data-toggle="modal"
+            data-target="#modal_<%= template._id %>" id="<%= template._id %>">View Details <i
+              class="far fa-eye"></i></button>
+          <div class="modal fade" id="modal_<%= template._id %>" tabindex="-1" role="dialog"
+            aria-labelledby="modal_<%= template._id %>Label" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Template Details</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="form-group">
+                      <label for="template_name_<%= template._id %>" class="col-form-label">Name</label>
+                      <input readonly type="text" class="form-control" id="template_name_<%= template._id %>"
+                        value="<%= template.template_name %>">
+                    </div>
+                    <div class="form-group">
+                      <label for="template_subject_<%= template._id %>" class="col-form-label">Subject</label>
+                      <input readonly type="text" class="form-control" id="template_subject_<%= template._id %>"
+                        value="<%= template.template_subject %>">
+                    </div>
+                    <div class="form-group">
+                      <label for="template_body_<%= template._id %>">Message:</label>
+                      <textarea readonly class="form-control" id="template_body_<%= template._id %>"
+                        rows="15"><%= template.template_body %></textarea>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            </form>
+          </div>
+          <form action="/templates/<%= template._id %>" method="POST">
+            <button class="btn btn-outline-danger" type="submit">Delete <i
+                class="fas fa-trash-alt"></i></a>
+          </form>
+        </div>
+      </div>
+    </div>
+    <% }); %>
+  </div>
+</div>
+
+<%- include("partials/footer") -%>
